@@ -81,5 +81,4 @@ public partial class PresenceViewerPage : ContentPage
         await Shell.Current.GoToAsync("//MainPage");
     }
 }
-
 ```
