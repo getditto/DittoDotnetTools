@@ -18,9 +18,10 @@ public partial class MainPage : ContentPage
         InitializeComponent();
     }
 
-    async void ItemSelected(System.Object sender, Microsoft.Maui.Controls.SelectedItemChangedEventArgs e)
+    async void ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         var selectedOption = e.SelectedItem as NavigationOption;
+
         if (selectedOption != null)
         {
             var page = (Page)ActivatorUtilities.CreateInstance(Utils.ServiceProvider.Current, selectedOption.TargetType);
@@ -34,6 +35,6 @@ public partial class MainPage : ContentPage
 
 public class NavigationOption
 {
-    public string Name { get; set; }
-    public Type TargetType { get; set; }
+    public required string Name { get; set; }
+    public required Type TargetType { get; set; }
 }
