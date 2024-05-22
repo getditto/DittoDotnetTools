@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DittoSDK;
+using Microsoft.Extensions.Logging;
+using SampleApp.Pages;
 
 namespace SampleApp;
 
@@ -18,7 +20,23 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+        builder.Services.AddSingleton(SetupDitto());
+        builder.Services.AddTransient<MainPage>();
+        builder.Services.AddTransient<PresenceViewerPage>();
 
-		return builder.Build();
+
+        return builder.Build();
 	}
+
+
+    private static Ditto SetupDitto()
+    {
+        var id = DittoIdentity.OnlinePlayground("<APP_ID>", "<TOKEN>", false);
+
+        var ditto = new Ditto(id);
+        ditto.DisableSyncWithV3();
+        ditto.StartSync();
+
+        return ditto;
+    }
 }

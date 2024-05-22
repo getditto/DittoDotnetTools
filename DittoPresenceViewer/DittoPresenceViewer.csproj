@@ -21,19 +21,9 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Ditto" Version="4.7.1" />
 	</ItemGroup>
-
 	<ItemGroup>
-	  <None Remove="Platforms\Windows\" />
-	  <None Remove="Platforms\Tizen\" />
-	  <None Remove="Platforms\MacCatalyst\" />
-	  <None Remove="Platforms\iOS\" />
-	  <None Remove="Platforms\Android\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Platforms\Windows\" />
-	  <Folder Include="Platforms\Tizen\" />
-	  <Folder Include="Platforms\MacCatalyst\" />
-	  <Folder Include="Platforms\iOS\" />
-	  <Folder Include="Platforms\Android\" />
-	</ItemGroup>
+		<MauiAsset Include="Resources\Presence\**">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</MauiAsset>
+    </ItemGroup>
 </Project>

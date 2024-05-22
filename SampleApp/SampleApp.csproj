@@ -21,10 +21,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>SampleApp</ApplicationTitle>
+		<ApplicationTitle>DotnetTools Sample App</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.sampleapp</ApplicationId>
+		<ApplicationId>live.ditto.dotnet.tools.sampleapp</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -60,6 +60,10 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Ditto" Version="4.7.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\DittoPresenceViewer\DittoPresenceViewer.csproj" />
+	</ItemGroup>
 </Project>

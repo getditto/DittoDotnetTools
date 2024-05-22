@@ -1,24 +1,39 @@
-﻿namespace SampleApp;
+﻿using System.Collections.ObjectModel;
+using DittoSDK;
+using SampleApp.Pages;
+
+namespace SampleApp;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    public ObservableCollection<NavigationOption> Options { get; set; }
 
-	public MainPage()
+    public MainPage()
 	{
-		InitializeComponent();
-	}
+        Options = new ObservableCollection<NavigationOption>
+        {
+            new NavigationOption { Name = "Presence Viewer", TargetType = typeof(PresenceViewerPage) },
+        };
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+        InitializeComponent();
+    }
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+    async void ItemSelected(System.Object sender, Microsoft.Maui.Controls.SelectedItemChangedEventArgs e)
+    {
+        var selectedOption = e.SelectedItem as NavigationOption;
+        if (selectedOption != null)
+        {
+            var page = (Page)ActivatorUtilities.CreateInstance(Utils.ServiceProvider.Current, selectedOption.TargetType);
+            await Navigation.PushAsync(page);
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+            ((ListView)sender).SelectedItem = null;
+        }
+    }
 }
 
+
+public class NavigationOption
+{
+    public string Name { get; set; }
+    public Type TargetType { get; set; }
+}
