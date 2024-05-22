@@ -2,9 +2,9 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace DittoPresenceViewer.Utils
+namespace Ditto.PresenceViewer.Utils
 {
-    public class ByteArrayToIntArrayConverter : JsonConverter<byte[]>
+    internal class ByteArrayToIntArrayConverter : JsonConverter<byte[]>
     {
         public override byte[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

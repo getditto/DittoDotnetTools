@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace DittoPresenceViewer.Utils
+namespace Ditto.PresenceViewer.Utils
 {
     public class StringToEnumConverter<T> : JsonConverter<T> where T : struct, Enum
     {

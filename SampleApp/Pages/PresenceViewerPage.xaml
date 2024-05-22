@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SampleApp.Pages.PresenceViewerPage"
-             xmlns:presence="clr-namespace:DittoPresenceViewer;assembly=DittoPresenceViewer"
+             xmlns:presence="clr-namespace:Ditto.PresenceViewer;assembly=DittoPresenceViewer"
              x:Name="self"
              Title="PresenceViewerPage">
     <presence:DittoPresenceViewer
