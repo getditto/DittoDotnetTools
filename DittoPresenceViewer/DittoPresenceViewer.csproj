@@ -14,8 +14,8 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 
-		<RootNamespace>Ditto.PresenceViewer</RootNamespace>
-		<PackageID>Ditto.PresenceViewer</PackageID>
+		<RootNamespace>DittoTools.PresenceViewer</RootNamespace>
+		<PackageID>DittoTools.PresenceViewer</PackageID>
 		<Version>1.0.0-alpha.1</Version>
 		<Description>Diagnostic tools for Ditto.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>

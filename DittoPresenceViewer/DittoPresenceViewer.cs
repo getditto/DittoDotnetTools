@@ -1,9 +1,9 @@
-﻿namespace Ditto.PresenceViewer;
+﻿namespace DittoTools.PresenceViewer;
 
 using System.Text;
 using System.Text.Json;
 using DittoSDK;
-using global::Ditto.PresenceViewer.Utils;
+using global::DittoTools.PresenceViewer.Utils;
 
 public class DittoPresenceViewer : ContentView, IDisposable
 {
