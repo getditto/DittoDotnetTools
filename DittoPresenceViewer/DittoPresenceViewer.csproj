@@ -21,6 +21,9 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>Ditto;Sync;Edge;PeerToPeer;P2P;Mesh;MAUI;.NET;iOS;Android;Debug;Diagnostic;Tools;Presence;PresenceViewer</PackageTags>
 		<PackageIcon>icon.png</PackageIcon>
+		<PackageProjectUrl>https://ditto.live</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/getditto/DittoDotnetTools</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="../LICENSE" Pack="true" PackagePath="\" />
