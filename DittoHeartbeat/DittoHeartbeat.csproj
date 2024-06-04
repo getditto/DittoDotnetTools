@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <Import Project="..\CommonPackages.props" />
-
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Ditto" Version="4.7.1" />
+	</ItemGroup>
 </Project>

@@ -5,49 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DittoTools_Heartbeat {
-    public class DittoHeartbeatConfig
-    {
-        public string Id { get; }
-        public int SecondsInterval { get; }
-        public Dictionary<string, object>? MetaData { get; }
-        public DittoHeartbeatConfig(string id, int secondsInterval, Dictionary<string, object>? metaData = null)
-        {
-            Id = id;
-            SecondsInterval = secondsInterval;
-            MetaData = metaData;
-        }
-    }
-
-    public class DittoHeartbeatInfo
-    {
-        public string Id { get; }
-        public string LastUpdated { get; }
-        public Dictionary<string, object>? MetaData { get; }
-        public int SecondsInterval { get; }
-        public int PresenceSnapshotDirectlyConnectedPeersCount { get; }
-        public Dictionary<string, object> PresenceSnapshotDirectlyConnectedPeers { get; }
-        public string Sdk { get; }
-        public string Schema { get; }
-        public string PeerKey { get; }
-
-        public DittoHeartbeatInfo(string id, string lastUpdated, Dictionary<string, object>? metaData, int secondsInterval, 
-            int presenceSnapshotDirectlyConnectedPeersCount, Dictionary<string, object> presenceSnapshotDirectlyConnectedPeers, 
-            string sdk, string schema, string peerKey)
-        {
-            Id = id;
-            LastUpdated = lastUpdated;
-            MetaData = metaData;
-            SecondsInterval = secondsInterval;
-            PresenceSnapshotDirectlyConnectedPeersCount = presenceSnapshotDirectlyConnectedPeersCount;
-            PresenceSnapshotDirectlyConnectedPeers = presenceSnapshotDirectlyConnectedPeers;
-            Sdk = sdk;
-            Schema = schema;
-            PeerKey = peerKey;
-        }
-    }
-
-
+namespace DittoTools.Heartbeat
+{
     public class DittoHeartbeat
     {
         private Timer? timer;
