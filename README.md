@@ -19,6 +19,12 @@ Tools are individually shipped under different NuGet packages.
 
 ### 1. Presence Viewer 
 
+The Presence Viewer displays a mesh graph that allows you to see all connected peers within the mesh and the transport each peer is using to make a connection.
+
+ <img src="Img/presenceViewer.png" alt="Presence Viewer Image" width="300">  
+
+You can use Presence Viewer in your .NET MAUI applications: 
+
 1. Add the package: 
 
 ```
@@ -146,6 +152,13 @@ You can either check the provided UI in the sample app, or create your own and u
 var hearbeat = new DittoHeartbeat();
 var config = new DittoHeartbeatConfig("<ID>", 10);
 heartbeat.StartHeartbeat(ditto, config, (heartbeatInfo) => {
-    Console.WriteLine(heartbeatInfo);
+    // use data
 });
 ```
+
+
+## Ditto Tools Example App 
+
+
+The [Ditto Tools Example App](https://github.com/getditto/DittoDotnetTools/tree/main/SampleApp) included in this repo allows you to try the DittoDotnetTools in a standalone .NET MAUI app. 
+
