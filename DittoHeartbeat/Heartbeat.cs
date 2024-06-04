@@ -24,7 +24,7 @@ namespace DittoTools.Heartbeat
             DittoHeartbeatInfo info = new DittoHeartbeatInfo(
                 id: config.Id,
                 lastUpdated: lastUpdated,
-                metaData: config.MetaData,
+                metaData: config.Metadata,
                 secondsInterval: config.SecondsInterval,
                 presenceSnapshotDirectlyConnectedPeersCount: presenceData.Count,
                 presenceSnapshotDirectlyConnectedPeers: GetConnections(presenceData, ditto),
@@ -119,7 +119,7 @@ namespace DittoTools.Heartbeat
 
         private static void AddToCollection(DittoHeartbeatInfo info, DittoHeartbeatConfig config, Ditto ditto)
         {
-            var metaData = config?.MetaData ?? new Dictionary<string, object>();
+            var metaData = config?.Metadata ?? new Dictionary<string, object>();
             var doc = new Dictionary<string, object>
             {
                 { "_id", info.Id },

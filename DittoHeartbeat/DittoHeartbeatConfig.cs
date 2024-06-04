@@ -7,13 +7,13 @@ namespace DittoTools.Heartbeat
 
         public int SecondsInterval { get; private set; }
 
-        public Dictionary<string, object>? MetaData { get; private set; }
+        public Dictionary<string, object>? Metadata { get; private set; }
 
         public DittoHeartbeatConfig(string id, int secondsInterval, Dictionary<string, object>? metaData = null)
         {
             Id = id;
             SecondsInterval = secondsInterval;
-            MetaData = metaData;
+            Metadata = metaData;
         }
 
         private DittoHeartbeatConfig()
@@ -24,7 +24,7 @@ namespace DittoTools.Heartbeat
         {
             Id = Guid.NewGuid().ToString(),
             SecondsInterval = 10,
-            MetaData = new Dictionary<string, object>()
+            Metadata = new Dictionary<string, object>()
             {
                 { "metadata-key1", "metadata-value1" },
                 { "metadata-key2", "metadata-value2" }

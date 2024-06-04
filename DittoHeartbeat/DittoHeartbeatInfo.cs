@@ -8,14 +8,17 @@ namespace DittoTools.Heartbeat
         [JsonPropertyName("_id")]
         public string Id { get; internal set; }
 
-        [JsonPropertyName("lastUpdated")]
-        public string LastUpdated { get; internal set; }
-
-        [JsonPropertyName("metadata")]
-        public Dictionary<string, object>? Metadata { get; internal set;  }
+        [JsonPropertyName("_schema")]
+        public string Schema { get; internal set; }
 
         [JsonPropertyName("secondsInterval")]
         public int SecondsInterval { get; internal set;  }
+
+        [JsonPropertyName("lastUpdated")]
+        public string LastUpdated { get; internal set; }
+        
+        [JsonPropertyName("sdk")]
+        public string Sdk { get; internal set; }
 
         [JsonPropertyName("presenceSnapshotDirectlyConnectedPeersCount")]
         public int PresenceSnapshotDirectlyConnectedPeersCount { get; internal set; }
@@ -23,11 +26,8 @@ namespace DittoTools.Heartbeat
         [JsonPropertyName("presenceSnapshotDirectlyConnectedPeers")]
         public Dictionary<string, object> PresenceSnapshotDirectlyConnectedPeers { get; internal set; }
 
-        [JsonPropertyName("sdk")]
-        public string Sdk { get; internal set; }
-
-        [JsonPropertyName("_schema")]
-        public string Schema { get; internal set; }
+        [JsonPropertyName("metadata")]
+        public Dictionary<string, object>? Metadata { get; internal set;  }
 
         [JsonPropertyName("peerKey")]
         public string PeerKey { get; internal set; }
