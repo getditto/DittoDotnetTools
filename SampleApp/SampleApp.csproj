@@ -66,5 +66,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\DittoPresenceViewer\DittoPresenceViewer.csproj" />
+	  <ProjectReference Include="..\DittoHeartbeat\DittoHeartbeat.csproj" />
 	</ItemGroup>
 </Project>

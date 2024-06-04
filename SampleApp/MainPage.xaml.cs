@@ -13,6 +13,7 @@ public partial class MainPage : ContentPage
         Options = new ObservableCollection<NavigationOption>
         {
             new NavigationOption { Name = "Presence Viewer", TargetType = typeof(PresenceViewerPage) },
+            new NavigationOption { Name = "Heartbeat", TargetType = typeof(HeartbeatPage) },
         };
 
         InitializeComponent();

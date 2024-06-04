@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SampleApp.Pages.HeartbeatPage"
+    x:Name="self"
+    Title="HeartbeatPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            x:Name="playPauseButton"
+            IconImageSource="icon-play.png"
+            Clicked="PlayPauseClicked" />
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Label
+            x:Name="mainLabel"
+            Margin="16">
+            <Label.Text>
+                To demo the Heartbeat feature, just hit the play button. A hearbeat document for this device will be added to the `devices` collection, and mock HeartbeatConfig data will be used to update the document every 10 seconds. Hearbeat documents for this and other devices with the heartbeat feature enabled will appear in a list here.
+
+If using the standalone DittoToolsApp, you must first reset the identity to activate Ditto. Note that every time the Ditto identity is reset in this way, the Ditto instance will be seen as a new local peer and will create a new HeartbeatInfo document with a new unique ID.
+            </Label.Text>
+        </Label>
+
+        <ListView
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill"
+            ItemsSource="{Binding HeartBeatInfos, Source={x:Reference self}}"
+            IsVisible="False"
+            HasUnevenRows="True"
+            x:Name="mainListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
+                            Margin="10"
+                            MaxLines="6"
+                            Text="{Binding .}"/>
+                    </ViewCell>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>
