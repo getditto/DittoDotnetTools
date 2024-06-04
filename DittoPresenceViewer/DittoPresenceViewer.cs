@@ -70,8 +70,9 @@ public class DittoPresenceViewer : ContentView, IDisposable
 
         options.Converters.Add(new ByteArrayToIntArrayConverter());
         options.Converters.Add(new StringToEnumConverter<DittoConnectionType>());
+        var presenceGraphJSON = JsonSerializer.Serialize(presence, options)
+            .Replace("\"isDittoCloudConnected\"", "\"isConnectedToDittoCloud\""); //INFO: hack. This property should be named isConnectedToDittoCloud to work with Presence Viewer, like in other SDKs 
 
-        var presenceGraphJSON = JsonSerializer.Serialize(presence, options);
         var b64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(presenceGraphJSON));
 
 
