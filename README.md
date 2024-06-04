@@ -1,4 +1,8 @@
-# DittoDotnetTools 
+#  DittoDotnetTools  
+
+
+<img src="icon.png" alt="Ditto Logo" width="100">
+<br/>
 
 DittoDotnetTools are diagnostic tools for Ditto. 
 
@@ -81,4 +85,67 @@ public partial class PresenceViewerPage : ContentPage
         await Shell.Current.GoToAsync("//MainPage");
     }
 }
+```
+_ _ _ 
+
+### 2. Heartbeat
+
+The Ditto Heartbeat tool allows you to monitor, locally or remotely, the peers in your mesh. It allows you to regularly report data and health of the device.
+
+**Configure Heartbeat**
+
+These are the values you need to provide to the Heartbeat:
+1. `Id` - Unique value that identifies the device.
+2. `SecondsInterval` - The frequency at which the Heartbeat will scrape the data.
+3. `Metadata` (optional) - Any metadata you want to attach to this heartbeat.
+
+There is a `DittoHeartbeatConfig` struct you can use to construct your configuration.
+
+```csharp
+// Provided with the Heartbeat tool
+public class DittoHeartbeatConfig 
+{
+    public string Id { get; private set; }
+
+    public int SecondsInterval { get; private set; }
+
+    public Dictionary<string, object>? Metadata { get; private set; }
+}
+```
+
+This tool generates a `DittoHeartbeatInfo` object with the given data:
+
+```csharp
+public class DittoHeartbeatInfo
+{
+   public string Id { get; internal set; }
+
+   public string Schema { get; internal set; }
+
+   public int SecondsInterval { get; internal set;  }
+
+   public string LastUpdated { get; internal set; }
+
+   public string Sdk { get; internal set; }
+
+   public int PresenceSnapshotDirectlyConnectedPeersCount { get; internal set; }
+
+   public Dictionary<string, object> PresenceSnapshotDirectlyConnectedPeers { get; internal set; }
+
+   public Dictionary<string, object>? Metadata { get; internal set;  }
+
+   public string PeerKey { get; internal set; }
+}
+```
+
+You can either check the provided UI in the sample app, or create your own and use the data as you please. 
+
+**Read data:**
+
+```csharp
+var hearbeat = new DittoHeartbeat();
+var config = new DittoHeartbeatConfig("<ID>", 10);
+heartbeat.StartHeartbeat(ditto, config, (heartbeatInfo) => {
+    Console.WriteLine(heartbeatInfo);
+});
 ```
