@@ -24,6 +24,8 @@
 		<PackageProjectUrl>https://ditto.live</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/getditto/DittoDotnetTools</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+
+		<_DittoIncludeNativeAndroidLibs>False</_DittoIncludeNativeAndroidLibs>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="../LICENSE" Pack="true" PackagePath="\" />
