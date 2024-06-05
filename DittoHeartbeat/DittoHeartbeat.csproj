@@ -4,6 +4,8 @@
 		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+
+		<RootNamespace>DittoTools.Heartbeat</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Ditto" Version="4.7.1" />
