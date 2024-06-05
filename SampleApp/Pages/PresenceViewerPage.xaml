@@ -6,6 +6,7 @@
              x:Name="self"
              Title="PresenceViewerPage">
     <presence:DittoPresenceViewer
+        x:Name="presenceViewer"
         HorizontalOptions="Fill"
         VerticalOptions="Fill"
         Ditto="{Binding Ditto, Source={x:Reference self}}"/>

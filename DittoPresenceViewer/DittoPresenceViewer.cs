@@ -61,7 +61,6 @@ public class DittoPresenceViewer : ContentView, IDisposable
 
     private static void OnDittoPresenceChange(DittoPresenceViewer presenceViewer, DittoPresenceGraph presence)
     {
-        Console.WriteLine($" -  - Presence Change - -  {presence.RemotePeers?.Count() ?? 0}");
         var options = new JsonSerializerOptions()
         {
             IncludeFields = true,
@@ -76,10 +75,19 @@ public class DittoPresenceViewer : ContentView, IDisposable
         var b64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(presenceGraphJSON));
 
 
-        MainThread.BeginInvokeOnMainThread(() =>
+        MainThread.BeginInvokeOnMainThread(async () =>
         {
+            var currentMs = 0;
+            var timeout = 3000;
+            const int interval = 50;
+
+            while (!presenceViewer._webView.IsLoaded && currentMs < timeout)
+            {
+                await Task.Delay(interval);
+                currentMs += interval;
+            }
+
             var result = presenceViewer._webView.EvaluateJavaScriptAsync($"Presence.updateNetwork('{b64String}');");
-            Console.WriteLine(result);
         });
 
     }

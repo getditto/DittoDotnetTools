@@ -12,4 +12,12 @@ public partial class PresenceViewerPage : ContentPage
 
         InitializeComponent();
     }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        presenceViewer?.Dispose();
+        presenceViewer = null;
+    }
 }
