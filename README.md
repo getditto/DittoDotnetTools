@@ -19,6 +19,8 @@ Tools are individually shipped under different NuGet packages.
 
 ### 1. Presence Viewer 
 
+[![NuGet](https://img.shields.io/nuget/v/DittoTools.PresenceViewer.svg)](https://www.nuget.org/packages/DittoTools.PresenceViewer)
+
 The Presence Viewer displays a mesh graph that allows you to see all connected peers within the mesh and the transport each peer is using to make a connection.
 
  <img src="Img/presenceViewer.png" alt="Presence Viewer Image" width="300">  
