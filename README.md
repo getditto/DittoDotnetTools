@@ -1,10 +1,10 @@
-#  DittoDotnetTools  
+#  Ditto .NET Tools  
 
 
 <img src="icon.png" alt="Ditto Logo" width="100">
 <br/>
 
-DittoDotnetTools are diagnostic tools for Ditto. 
+Ditto .NET Tools are diagnostic tools for Ditto. 
 
 These tools are available through NuGet. 
 
