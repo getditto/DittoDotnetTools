@@ -6,7 +6,21 @@
 		<Nullable>enable</Nullable>
 
 		<RootNamespace>DittoTools.Heartbeat</RootNamespace>
+		<PackageID>DittoTools.Heartbeat</PackageID>
+		<Version>1.0.0</Version>
+		<Description>Diagnostic tools for Ditto.</Description>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageTags>Ditto;Sync;Edge;PeerToPeer;P2P;Mesh;MAUI;.NET;iOS;Android;Debug;Diagnostic;Tools;Heartbeat</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageProjectUrl>https://ditto.live</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/getditto/DittoDotnetTools</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<_DittoIncludeNativeAndroidLibs>False</_DittoIncludeNativeAndroidLibs>
 	</PropertyGroup>
+	<ItemGroup>
+		<None Include="../LICENSE" Pack="true" PackagePath="\" />
+		<None Include="../icon.png" Pack="true" PackagePath="\" />
+  	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Ditto" Version="4.7.1" />
 	</ItemGroup>
