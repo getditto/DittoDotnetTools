@@ -8,7 +8,7 @@ Ditto .NET Tools are diagnostic tools for Ditto.
 
 These tools are available through NuGet. 
 
-Issues and pull requests welcome!
+For support, please contact Ditto Support (<support@ditto.live>).
 
 ## Usage 
 
