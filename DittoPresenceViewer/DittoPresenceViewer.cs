@@ -9,9 +9,18 @@ public class DittoPresenceViewer : ContentView, IDisposable
 {
     private readonly WebView _webView;
     private DittoPresenceObserver? _observer;
-
+    private readonly JsonSerializerOptions _presenceSerializerOptionsOptions;
+    
     public DittoPresenceViewer()
     {
+        _presenceSerializerOptionsOptions = new JsonSerializerOptions()
+        {
+            IncludeFields = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
+        _presenceSerializerOptionsOptions.Converters.Add(new ByteArrayToIntArrayConverter());
+        _presenceSerializerOptionsOptions.Converters.Add(new StringToEnumConverter<DittoConnectionType>());
+
         _webView = new WebView
         {
             HorizontalOptions = LayoutOptions.Fill,
@@ -61,19 +70,10 @@ public class DittoPresenceViewer : ContentView, IDisposable
 
     private static void OnDittoPresenceChange(DittoPresenceViewer presenceViewer, DittoPresenceGraph presence)
     {
-        var options = new JsonSerializerOptions()
-        {
-            IncludeFields = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        };
-
-        options.Converters.Add(new ByteArrayToIntArrayConverter());
-        options.Converters.Add(new StringToEnumConverter<DittoConnectionType>());
-        var presenceGraphJSON = JsonSerializer.Serialize(presence, options)
+        var presenceGraphJson = JsonSerializer.Serialize(presence, presenceViewer._presenceSerializerOptionsOptions)
             .Replace("\"isDittoCloudConnected\"", "\"isConnectedToDittoCloud\""); //INFO: hack. This property should be named isConnectedToDittoCloud to work with Presence Viewer, like in other SDKs 
 
-        var b64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(presenceGraphJSON));
-
+        var b64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(presenceGraphJson));
 
         MainThread.BeginInvokeOnMainThread(async () =>
         {
@@ -89,6 +89,5 @@ public class DittoPresenceViewer : ContentView, IDisposable
 
             var result = presenceViewer._webView.EvaluateJavaScriptAsync($"Presence.updateNetwork('{b64String}');");
         });
-
     }
 }
