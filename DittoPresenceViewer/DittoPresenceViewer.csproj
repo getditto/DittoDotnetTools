@@ -33,7 +33,7 @@
   	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DittoPresenceViewerCore" Version="1.0.0-pre.1" />
+		<PackageReference Include="DittoPresenceViewerCore" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Ditto" Version="4.7.1" />
