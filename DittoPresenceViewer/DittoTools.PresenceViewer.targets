@@ -1,7 +1,0 @@
-<Project>
-  <ItemGroup>
-    <MauiAsset Include="$(MSBuildThisFileDirectory)\Resources\Presence\**">
-        <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </MauiAsset>
-  </ItemGroup>
-</Project>

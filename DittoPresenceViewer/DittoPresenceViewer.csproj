@@ -33,21 +33,9 @@
   	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="DittoPresenceViewerCore" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Ditto" Version="4.7.1" />
 	</ItemGroup>
-	<!-- Resources - Packaging -->
-	<ItemGroup>
-  		<None Include="DittoTools.PresenceViewer.targets" Pack="True" PackagePath="buildTransitive\" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="Resources\Presence\**" Pack="True" PackagePath="buildTransitive\Resources\Presence\" />
-	</ItemGroup>
-	<ItemGroup>
-		<!-- For direct reference -->
-		<MauiAsset Include="Resources\Presence\**">
-			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-		</MauiAsset>
-    </ItemGroup>
 </Project>
