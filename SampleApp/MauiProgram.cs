@@ -31,9 +31,17 @@ public static class MauiProgram
 
     private static Ditto SetupDitto()
     {
-        var id = DittoIdentity.OnlinePlayground("<APP_ID>", "<TOKEN>", false);
+        var appId = "<APP_ID>";
+        var id = DittoIdentity.OnlinePlayground(appId, "<PLAYGROUND_TOKEN>", true);
 
-        var ditto = new Ditto(id);
+        var ditto = new Ditto(id, Path.Combine(FileSystem.Current.AppDataDirectory, "ditto"));
+
+        var config = ditto.TransportConfig;
+        config.Connect.WebsocketUrls.Add($"wss://{appId}.cloud.ditto.live");
+        config.EnableAllPeerToPeer();
+
+        ditto.TransportConfig = config;
+
         ditto.DisableSyncWithV3();
         ditto.StartSync();
 
