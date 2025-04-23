@@ -7,7 +7,7 @@
 
 		<RootNamespace>DittoTools.Heartbeat</RootNamespace>
 		<PackageID>DittoTools.Heartbeat</PackageID>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 		<Description>Diagnostic tools for Ditto.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>Ditto;Sync;Edge;PeerToPeer;P2P;Mesh;MAUI;.NET;iOS;Android;Debug;Diagnostic;Tools;Heartbeat</PackageTags>

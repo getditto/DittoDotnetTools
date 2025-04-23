@@ -16,7 +16,7 @@
 
 		<RootNamespace>DittoTools.PresenceViewer</RootNamespace>
 		<PackageID>DittoTools.PresenceViewer</PackageID>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 		<Description>Diagnostic tools for Ditto.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>Ditto;Sync;Edge;PeerToPeer;P2P;Mesh;MAUI;.NET;iOS;Android;Debug;Diagnostic;Tools;Presence;PresenceViewer</PackageTags>
@@ -33,7 +33,7 @@
   	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DittoPresenceViewerCore" Version="2.1.0" />
+		<PackageReference Include="DittoPresenceViewerCore" Version="2.1.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Ditto" Version="4.8.4" />
