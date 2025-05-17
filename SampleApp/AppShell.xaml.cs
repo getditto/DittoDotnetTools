@@ -1,4 +1,5 @@
-﻿using SampleApp.Utils;
+﻿using DittoSDK;
+using SampleApp.Utils;
 
 namespace SampleApp;
 
@@ -8,6 +9,6 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
-		_ = PermissionHelper.CheckPermissions();
+		_ = DittoSyncPermissions.RequestPermissionsAsync();
 	}
 }
