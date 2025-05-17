@@ -36,6 +36,6 @@
 		<PackageReference Include="DittoPresenceViewerCore" Version="2.1.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Ditto" Version="4.11.0-maccatalyst.2" />
+		<PackageReference Include="Ditto" Version="4.11.0-preview.2" />
 	</ItemGroup>
 </Project>

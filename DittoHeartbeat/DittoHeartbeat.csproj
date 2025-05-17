@@ -24,6 +24,6 @@
 		<None Include="../icon.png" Pack="true" PackagePath="\" />
   	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Ditto" Version="4.11.0-maccatalyst.2" />
+		<PackageReference Include="Ditto" Version="4.11.0-preview.2" />
 	</ItemGroup>
 </Project>
