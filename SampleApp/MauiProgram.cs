@@ -37,7 +37,7 @@ public static class MauiProgram
         var ditto = new Ditto(id, Path.Combine(FileSystem.Current.AppDataDirectory, "ditto"));
 
         var config = ditto.TransportConfig;
-        config.Connect.WebsocketUrls.Add($"wss://{appId}.cloud.ditto.live");
+        config.Connect.WebsocketUrls.Add("<WEBSOCKET_URL>");
         config.EnableAllPeerToPeer();
 
         ditto.TransportConfig = config;
