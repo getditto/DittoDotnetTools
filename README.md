@@ -170,5 +170,7 @@ Before your first build, copy the credentials template and fill in your values f
 cp .env.sample .env
 ```
 
-The `.env` file is embedded at build time and read at app startup. The app fails to launch if any required key is missing.
+The four required keys are `DITTO_APP_ID`, `DITTO_PLAYGROUND_TOKEN`, `DITTO_AUTH_URL`, and `DITTO_WEBSOCKET_URL`.
+
+At build time, `SampleApp.csproj` embeds `.env` as a resource (`<EmbeddedResource Include="../.env" />`). At startup, `MauiProgram.LoadEnvVariables()` reads that resource stream and `SetupDitto()` wires the values into `DittoIdentity.OnlinePlayground(...)` and the WebSocket transport config. The app fails to launch with a clear error if the embedded resource is missing or any required key is empty.
 
