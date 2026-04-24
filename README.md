@@ -162,5 +162,13 @@ heartbeat.StartHeartbeat(ditto, config, (heartbeatInfo) => {
 ## Ditto Tools Example App 
 
 
-The [Ditto Tools Example App](https://github.com/getditto/DittoDotnetTools/tree/main/SampleApp) included in this repo allows you to try the DittoDotnetTools in a standalone .NET MAUI app. 
+The [Ditto Tools Example App](https://github.com/getditto/DittoDotnetTools/tree/main/SampleApp) included in this repo allows you to try the DittoDotnetTools in a standalone .NET MAUI app.
+
+Before your first build, copy the credentials template and fill in your values from the [Ditto Portal](https://portal.ditto.live):
+
+```sh
+cp .env.sample .env
+```
+
+The `.env` file is embedded at build time and read at app startup. The app fails to launch if any required key is missing.
 
