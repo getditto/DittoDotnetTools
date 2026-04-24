@@ -164,13 +164,11 @@ heartbeat.StartHeartbeat(ditto, config, (heartbeatInfo) => {
 
 The [Ditto Tools Example App](https://github.com/getditto/DittoDotnetTools/tree/main/SampleApp) included in this repo allows you to try the DittoDotnetTools in a standalone .NET MAUI app.
 
-Before your first build, copy the credentials template and fill in your values from the [Ditto Portal](https://portal.ditto.live):
+Before your first build, copy `.env.sample` to `.env` at the repo root and fill in values from the [Ditto Portal](https://portal.ditto.live):
 
 ```sh
 cp .env.sample .env
 ```
 
-The four required keys are `DITTO_APP_ID`, `DITTO_PLAYGROUND_TOKEN`, `DITTO_AUTH_URL`, and `DITTO_WEBSOCKET_URL`.
-
-At build time, `SampleApp.csproj` embeds `.env` as a resource (`<EmbeddedResource Include="../.env" />`). At startup, `MauiProgram.LoadEnvVariables()` reads that resource stream and `SetupDitto()` wires the values into `DittoIdentity.OnlinePlayground(...)` and the WebSocket transport config. The app fails to launch with a clear error if the embedded resource is missing or any required key is empty.
+Required keys: `DITTO_APP_ID`, `DITTO_PLAYGROUND_TOKEN`, `DITTO_AUTH_URL`, `DITTO_WEBSOCKET_URL`. The app throws at launch if any are empty.
 
