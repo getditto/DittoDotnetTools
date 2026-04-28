@@ -54,6 +54,9 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+
+		<!-- Credentials file at the repo root, embedded as a resource and parsed by MauiProgram. -->
+		<EmbeddedResource Include="../.env" />
 	</ItemGroup>
 
 	<ItemGroup>
