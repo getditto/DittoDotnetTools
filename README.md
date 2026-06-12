@@ -14,6 +14,8 @@ For support, please contact Ditto Support (<support@ditto.com>).
 
 These tools require you to have an already-initialized Ditto instance. Take a look at the [C# Documentation](https://docs.ditto.live/get-started/install-guides/c-sharp). 
 
+> **Requires Ditto .NET SDK v5.x.** These tools pin Ditto `5.0.1` as the
+> minimum compatible SDK version. They are not compatible with Ditto v4.
 
 Tools are individually shipped under different NuGet packages. 
 
@@ -30,7 +32,7 @@ You can use Presence Viewer in your .NET MAUI applications:
 1. Add the package: 
 
 ```
-<PackageReference Include="DittoTools.PresenceViewer" Version="1.0.0-alpha.1" />
+<PackageReference Include="DittoTools.PresenceViewer" Version="2.0.0" />
 ```
 
 2. Create a blank .NET MAUI Page and reference the Presence Viewer. 
@@ -170,5 +172,5 @@ Before your first build, copy `.env.sample` to `.env` at the repo root and fill 
 cp .env.sample .env
 ```
 
-Required keys: `DITTO_APP_ID`, `DITTO_PLAYGROUND_TOKEN`, `DITTO_AUTH_URL`, `DITTO_WEBSOCKET_URL`. The app throws at launch if any are empty.
+Required keys: `DITTO_APP_ID`, `DITTO_PLAYGROUND_TOKEN`, `DITTO_AUTH_URL`. The app throws at launch if any are empty.
 

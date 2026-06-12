@@ -8,7 +8,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             x:Name="playPauseButton"
-            IconImageSource="icon-play.png"
+            IconImageSource="icon_play.png"
             Clicked="PlayPauseClicked" />
     </ContentPage.ToolbarItems>
     <Grid>

@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using DittoSDK;
+using DittoSDK.Store;
 using DittoTools.Heartbeat;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 
@@ -26,7 +27,7 @@ public partial class HeartbeatPage : ContentPage
     void PlayPauseClicked(System.Object sender, System.EventArgs e)
     {
         _isHeartbeatRunning = !_isHeartbeatRunning;
-        playPauseButton.IconImageSource = _isHeartbeatRunning ? "icon-pause.png" : "icon-play.png";
+        playPauseButton.IconImageSource = _isHeartbeatRunning ? "icon_pause.png" : "icon_play.png";
         this.mainLabel.IsVisible = !_isHeartbeatRunning;
         this.mainListView.IsVisible = _isHeartbeatRunning;
         ToggleHeartbeat(_isHeartbeatRunning);
@@ -42,12 +43,16 @@ public partial class HeartbeatPage : ContentPage
                 {
                     _infoObserver = _ditto.Store.RegisterObserver(Query, (result) =>
                     {
-                        HeartBeatInfos = result
+                        var infos = result
                             .Items
                             .Select(s => JsonSerializer.Deserialize<DittoHeartbeatInfo>(s.JsonString()))
                             .Where(s => s != null)
                             .ToList();
-                        OnPropertyChanged(nameof(HeartBeatInfos));
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            HeartBeatInfos = infos;
+                            OnPropertyChanged(nameof(HeartBeatInfos));
+                        });
                     });
                 }
             };

@@ -1,4 +1,6 @@
-﻿using DittoSDK;
+using DittoSDK;
+using DittoSDK.Sync;
+using DittoSDK.Transport;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -30,7 +32,7 @@ namespace DittoTools.Heartbeat
                 presenceSnapshotDirectlyConnectedPeers: GetConnections(presenceData, ditto),
                 sdk: Ditto.Version,
                 schema: Constants.schema,
-                peerKey: ditto.Presence.Graph.LocalPeer.PeerKeyString
+                peerKey: ditto.Presence.Graph.LocalPeer.PeerKey
             );
 
             AddToCollection(info, config, ditto);
@@ -55,7 +57,7 @@ namespace DittoTools.Heartbeat
             }
         }
 
-        private static List<DittoPeer> GetPeers(Ditto ditto) 
+        private static List<DittoPeer> GetPeers(Ditto ditto)
         {
             return ditto.Presence.Graph.RemotePeers;
         }
@@ -74,13 +76,13 @@ namespace DittoTools.Heartbeat
                     {
                         { "deviceName", connection.DeviceName },
                         { "sdk", Ditto.Version },
-                        { "isConnectedToDittoCloud", connection.IsDittoCloudConnected },
+                        { "isConnectedToDittoCloud", connection.IsConnectedToDittoServer },
                         { "bluetooth", connectionsTypeMap["bt"] },
                         { "p2pWifi", connectionsTypeMap["p2pWifi"] },
                         { "lan", connectionsTypeMap["lan"] }
                     };
 
-                    connectionsMap[connection.PeerKeyString] = connectionMap;
+                    connectionsMap[connection.PeerKey] = connectionMap;
                 }
             }
 
@@ -133,7 +135,14 @@ namespace DittoTools.Heartbeat
                 { "peerKey", info.PeerKey }
             };
 
-            ditto.Store.Collection(Constants.collectionName).Upsert(doc);
+            // Capture the Task so that store errors are observed rather than
+            // silently swallowed as unobserved task exceptions.
+            ditto.Store.ExecuteAsync(
+                $"INSERT INTO {Constants.collectionName} DOCUMENTS (:doc) ON ID CONFLICT DO UPDATE",
+                new Dictionary<string, object> { ["doc"] = doc })
+                .ContinueWith(
+                    t => System.Diagnostics.Debug.WriteLine($"[DittoHeartbeat] Store.ExecuteAsync failed: {t.Exception}"),
+                    TaskContinuationOptions.OnlyOnFaulted);
         }
     }
 }

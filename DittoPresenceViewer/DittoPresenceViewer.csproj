@@ -9,14 +9,14 @@
 		<Nullable>enable</Nullable>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 
 		<RootNamespace>DittoTools.PresenceViewer</RootNamespace>
 		<PackageID>DittoTools.PresenceViewer</PackageID>
-		<Version>1.1.1</Version>
+		<Version>2.0.0-rc.1</Version>
 		<Description>Diagnostic tools for Ditto.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>Ditto;Sync;Edge;PeerToPeer;P2P;Mesh;MAUI;.NET;iOS;Android;Debug;Diagnostic;Tools;Presence;PresenceViewer</PackageTags>
@@ -33,9 +33,17 @@
   	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DittoPresenceViewerCore" Version="2.1.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Ditto" Version="4.11.0" />
+		<PackageReference Include="Ditto" Version="5.0.1" />
+	</ItemGroup>
+
+	<!-- Vendor the presence-viewer web assets from the monorepo shared directory.
+	     Resources/Presence is a symlink to ../../../../shared/DittoPresenceViewerCore/Shared
+	     which resolves to resources/presence-viewer/dist at the repo root.
+	     The LogicalName strips the Resources/Presence/ prefix so that index.html
+	     lands at the MAUI app bundle root (same as the old DittoPresenceViewerCore NuGet). -->
+	<ItemGroup>
+		<MauiAsset Include="Resources/Presence/**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 </Project>
