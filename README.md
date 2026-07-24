@@ -8,12 +8,17 @@ Ditto .NET Tools are diagnostic tools for Ditto.
 
 These tools are available through NuGet. 
 
-For support, please contact Ditto Support (<support@ditto.com>).
+> [!IMPORTANT]
+> This repository is a read-only mirror maintained by Ditto's SDK release
+> process. Pull requests opened outside that process are not accepted. To report
+> a problem or request a change, contact Ditto Support (<support@ditto.com>).
 
 ## Usage 
 
 These tools require you to have an already-initialized Ditto instance. Take a look at the [C# Documentation](https://docs.ditto.live/get-started/install-guides/c-sharp). 
 
+> **Requires Ditto .NET SDK v5.x.** These tools pin Ditto `5.0.1` as the
+> minimum compatible SDK version. They are not compatible with Ditto v4.
 
 Tools are individually shipped under different NuGet packages. 
 
@@ -30,7 +35,7 @@ You can use Presence Viewer in your .NET MAUI applications:
 1. Add the package: 
 
 ```
-<PackageReference Include="DittoTools.PresenceViewer" Version="1.0.0-alpha.1" />
+<PackageReference Include="DittoTools.PresenceViewer" Version="2.0.0" />
 ```
 
 2. Create a blank .NET MAUI Page and reference the Presence Viewer. 
@@ -146,6 +151,29 @@ public class DittoHeartbeatInfo
 }
 ```
 
+Each entry in `PresenceSnapshotDirectlyConnectedPeers` includes a
+`connectionTypes` map from every observed SDK connection-type name to its count.
+New code should use this map for connection-type counts. The `bluetooth`,
+`p2pWifi`, and `lan` keys are legacy summary fields retained in heartbeat
+documents for compatibility. The SDK enum names LAN connections `AccessPoint`,
+so that enum value supplies `lan`. WebSocket, Multicast, and other connection
+types are separate entries in `connectionTypes`.
+
+Wire compatibility is additive: tools released before `connectionTypes` ignore
+that extra field and continue reading the fixed summary fields. Current tools
+also accept older documents without `connectionTypes`, treating the missing map
+as empty. For those documents, the legacy summaries are the only available
+breakdown. The `lan` summary means `AccessPoint` only. Earlier GA tools also
+included WebSocket in `lan`, so documents written by those versions can report
+a larger LAN count. In current documents, WebSocket has its own exact
+`connectionTypes` entry.
+
+The `isConnectedToDittoCloud` field reports whether the peer is connected to
+Ditto Server. SDK v4 exposed this connection state as
+`IsConnectedToDittoCloud`; SDK v5 renamed the SDK property to
+`IsConnectedToDittoServer`. The heartbeat document schema retains the original
+key so independently versioned tools can exchange and read the same documents.
+
 You can either check the provided UI in the sample app, or create your own and use the data as you please. 
 
 **Read data:**
@@ -170,5 +198,4 @@ Before your first build, copy `.env.sample` to `.env` at the repo root and fill 
 cp .env.sample .env
 ```
 
-Required keys: `DITTO_APP_ID`, `DITTO_PLAYGROUND_TOKEN`, `DITTO_AUTH_URL`, `DITTO_WEBSOCKET_URL`. The app throws at launch if any are empty.
-
+Required keys: `DITTO_APP_ID`, `DITTO_PLAYGROUND_TOKEN`, `DITTO_AUTH_URL`. The app throws at launch if any are empty.
