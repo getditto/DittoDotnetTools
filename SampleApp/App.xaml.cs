@@ -1,11 +1,13 @@
-﻿namespace SampleApp;
+﻿using DittoSDK;
+
+namespace SampleApp;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
+    public App(Ditto ditto)
+    {
+        InitializeComponent();
 
-		MainPage = new AppShell();
-	}
+        MainPage = new AppShell(ditto);
+    }
 }
