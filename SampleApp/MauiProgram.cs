@@ -1,5 +1,6 @@
 using System.Reflection;
 using DittoSDK;
+using DittoSDK.Auth;
 using Microsoft.Extensions.Logging;
 using SampleApp.Pages;
 
@@ -36,20 +37,25 @@ public static class MauiProgram
         var appId = RequireEnv(envVars, "DITTO_APP_ID");
         var playgroundToken = RequireEnv(envVars, "DITTO_PLAYGROUND_TOKEN");
         var authUrl = RequireEnv(envVars, "DITTO_AUTH_URL");
-        var websocketUrl = RequireEnv(envVars, "DITTO_WEBSOCKET_URL");
 
-        var ditto = new Ditto(
-            DittoIdentity.OnlinePlayground(appId, playgroundToken, false, authUrl),
-            Path.Combine(FileSystem.Current.AppDataDirectory, "ditto"));
+        var config = new DittoConfig(
+            databaseId: appId,
+            connect: new DittoConfigConnect.Server(new Uri(authUrl)),
+            persistenceDirectory: Path.Combine(FileSystem.Current.AppDataDirectory, "ditto"));
 
-        ditto.UpdateTransportConfig(config =>
+        var ditto = Ditto.Open(config);
+
+        // ExpirationHandler is required when using DittoConfigConnect.Server.
+        // It is invoked when the auth token has expired or is about to expire.
+        ditto.Auth.ExpirationHandler = async (d, timeUntilExpiration) =>
         {
-            config.Connect.WebsocketUrls.Add(websocketUrl);
-        });
+            await d.Auth.LoginAsync(playgroundToken, DittoAuthenticationProvider.Development);
+        };
 
-        ditto.DisableSyncWithV3();
-        ditto.StartSync();
-
+        // Sync.Start() is NOT called here. It is deferred to AppShell so that
+        // runtime permissions (Bluetooth, Wi-Fi Aware, Location) are requested
+        // first. Starting sync before permissions are granted causes the Wi-Fi
+        // Aware transport to throw a fatal JNI exception on Android 13+.
         return ditto;
     }
 
