@@ -1,4 +1,6 @@
-﻿using DittoSDK;
+using DittoSDK;
+using DittoSDK.Sync;
+using DittoSDK.Transport;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -30,7 +32,7 @@ namespace DittoTools.Heartbeat
                 presenceSnapshotDirectlyConnectedPeers: GetConnections(presenceData, ditto),
                 sdk: Ditto.Version,
                 schema: Constants.schema,
-                peerKey: ditto.Presence.Graph.LocalPeer.PeerKeyString
+                peerKey: ditto.Presence.Graph.LocalPeer.PeerKey
             );
 
             AddToCollection(info, config, ditto);
@@ -55,7 +57,7 @@ namespace DittoTools.Heartbeat
             }
         }
 
-        private static List<DittoPeer> GetPeers(Ditto ditto) 
+        private static List<DittoPeer> GetPeers(Ditto ditto)
         {
             return ditto.Presence.Graph.RemotePeers;
         }
@@ -68,53 +70,45 @@ namespace DittoTools.Heartbeat
             {
                 foreach (var connection in presenceSnapshotDirectlyConnectedPeers)
                 {
-                    var connectionsTypeMap = GetConnectionTypeCount(connection);
+                    var connectionTypes = CountConnectionTypes(connection);
 
                     var connectionMap = new Dictionary<string, object>
                     {
                         { "deviceName", connection.DeviceName },
                         { "sdk", Ditto.Version },
-                        { "isConnectedToDittoCloud", connection.IsDittoCloudConnected },
-                        { "bluetooth", connectionsTypeMap["bt"] },
-                        { "p2pWifi", connectionsTypeMap["p2pWifi"] },
-                        { "lan", connectionsTypeMap["lan"] }
+                        // SDK v4 exposed this connection state as
+                        // IsConnectedToDittoCloud; SDK v5 exposes the same state
+                        // as IsConnectedToDittoServer. Heartbeat documents are
+                        // exchanged between independently versioned tools, so the
+                        // stored key remains isConnectedToDittoCloud. Changing it
+                        // would make existing readers miss the connection state.
+                        { "isConnectedToDittoCloud", connection.IsConnectedToDittoServer },
+                        { "bluetooth", connectionTypes.GetValueOrDefault(DittoConnectionType.Bluetooth.ToString()) },
+                        { "p2pWifi", connectionTypes.GetValueOrDefault(DittoConnectionType.P2PWiFi.ToString()) },
+                        // The SDK enum calls LAN `AccessPoint`. WebSocket is a
+                        // separate transport in the open-ended connectionTypes map.
+                        { "lan", connectionTypes.GetValueOrDefault(DittoConnectionType.AccessPoint.ToString()) },
+                        { "connectionTypes", connectionTypes }
                     };
 
-                    connectionsMap[connection.PeerKeyString] = connectionMap;
+                    connectionsMap[connection.PeerKey] = connectionMap;
                 }
             }
 
             return connectionsMap;
         }
-        private static Dictionary<string, int> GetConnectionTypeCount(DittoPeer connection)
-        {
-            var bt = 0;
-            var p2pWifi = 0;
-            var lan = 0;
 
-            foreach (var conn in connection.Connections)
+        private static Dictionary<string, int> CountConnectionTypes(DittoPeer peer)
+        {
+            var connectionTypes = new Dictionary<string, int>(StringComparer.Ordinal);
+
+            foreach (var connection in peer.Connections)
             {
-                switch (conn.ConnectionType)
-                {
-                    case DittoConnectionType.Bluetooth:
-                        bt++;
-                        break;
-                    case DittoConnectionType.P2PWiFi:
-                        p2pWifi++;
-                        break;
-                    case DittoConnectionType.AccessPoint:
-                    case DittoConnectionType.WebSocket:
-                        lan++;
-                        break;
-                }
+                var name = connection.ConnectionType.ToString();
+                connectionTypes[name] = connectionTypes.GetValueOrDefault(name) + 1;
             }
 
-            return new Dictionary<string, int>
-            {
-                { "bt", bt },
-                { "p2pWifi", p2pWifi },
-                { "lan", lan }
-            };
+            return connectionTypes;
         }
 
         private static void AddToCollection(DittoHeartbeatInfo info, DittoHeartbeatConfig config, Ditto ditto)
@@ -133,7 +127,14 @@ namespace DittoTools.Heartbeat
                 { "peerKey", info.PeerKey }
             };
 
-            ditto.Store.Collection(Constants.collectionName).Upsert(doc);
+            // Capture the Task so that store errors are observed rather than
+            // silently swallowed as unobserved task exceptions.
+            ditto.Store.ExecuteAsync(
+                $"INSERT INTO {Constants.collectionName} DOCUMENTS (:doc) ON ID CONFLICT DO UPDATE",
+                new Dictionary<string, object> { ["doc"] = doc })
+                .ContinueWith(
+                    t => System.Diagnostics.Debug.WriteLine($"[DittoHeartbeat] Store.ExecuteAsync failed: {t.Exception}"),
+                    TaskContinuationOptions.OnlyOnFaulted);
         }
     }
 }
