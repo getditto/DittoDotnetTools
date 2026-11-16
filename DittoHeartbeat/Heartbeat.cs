@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace DittoTools.Heartbeat
 {
+    [System.Obsolete("This tool is deprecated and will be removed in the next major DittoDotnetTools release.")]
     public class DittoHeartbeat
     {
         private Timer? timer;

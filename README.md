@@ -103,6 +103,8 @@ _ _ _
 
 ### 2. Heartbeat
 
+**Deprecated.** The Heartbeat tool is deprecated and will be removed in the next major DittoDotnetTools release.
+
 The Ditto Heartbeat tool allows you to monitor, locally or remotely, the peers in your mesh. It allows you to regularly report data and health of the device.
 
 **Configure Heartbeat**

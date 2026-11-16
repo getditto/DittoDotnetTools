@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace DittoTools.Heartbeat
 {
+    [System.Obsolete("This tool is deprecated and will be removed in the next major DittoDotnetTools release.")]
     public class DittoHeartbeatInfo
     {
         [JsonPropertyName("_id")]

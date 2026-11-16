@@ -1,6 +1,7 @@
 ﻿using System;
 namespace DittoTools.Heartbeat
 {
+    [System.Obsolete("This tool is deprecated and will be removed in the next major DittoDotnetTools release.")]
     public class DittoHeartbeatConfig
     {
         public string Id { get; private set; }
